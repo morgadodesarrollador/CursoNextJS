@@ -6,7 +6,7 @@ type Props = { children: React.ReactNode };
 
 import styles from './MainLayout.module.css';
 
-export const MainLayout:  React.FC<Props> = ({ children }) => {
+export const MainLayout:  FC<Props> = ({ children }) => {
     return (
         <div className={styles.container}>
           
