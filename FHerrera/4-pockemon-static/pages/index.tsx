@@ -28,7 +28,7 @@ export const getStaticProps: GetStaticProps = async(ctx) => {
   console.log( data );
   return { 
     props: {
-      pokemons: data.results[0]. //hemos de crear la interface y definir un tipo estricto
+      pokemons: data.results //hemos de crear la interface y definir un tipo estricto
     }
   }
 }
