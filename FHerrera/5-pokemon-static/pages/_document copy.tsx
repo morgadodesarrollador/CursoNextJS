@@ -14,20 +14,18 @@ class MyDocument extends Document {
         // Useful for wrapping in a per-page basis
         enhanceComponent: (Component) => Component,
       })
+
     // Run the parent `getInitialProps`, it now includes the custom `renderPage`
     const initialProps = await Document.getInitialProps(ctx)
-    return { 
-      ...initialProps,
-      styles: <> { initialProps.styles } </>
-      //styles: React.Children.toArray([initialProps.styles]),
-    }
+
+    return { ...initialProps }
   }
 
   render() {
     return (
       <Html>
         <Head lang='es'>
-          {CssBaseline.flush()}
+          <title>Papeleria la Ruisueña</title>
         </Head>
         <body>
           <Main />
