@@ -1,25 +1,28 @@
 
 import { Button, Card, Container, Grid, Image, Text } from '@nextui-org/react';
 import { GetStaticProps, GetStaticPaths, NextPage } from 'next';
-import { useRouter } from 'next/router';
-import React from 'react';
+import { useEffect } from 'react';
 import { pokeApi } from '../../api';
 import { Layout } from '../../components/layouts';
-import { Pokemon, PokemonsListResponse } from '../../interfaces';
+import { Pokemon } from '../../interfaces';
+import { localFavoritos } from '../../utils';
 
 interface Props {
     pokemon: Pokemon;
 }
 const PokemonPage: NextPage<Props> = ({ pokemon }) => {
-    console.log (pokemon);
+    const clickToogleFavorito = ()  => { //*1
+        localFavoritos.toggleFavorito( pokemon.id )
+    }
+
     return (
-        <Layout title='Detalle del pokemon'>
+        <Layout title= { pokemon.name }>
             <Grid.Container css= {{ marginTop: '5px' }} gap={2}>
                 <Grid xs={ 12 } sm = {4}>
                     <Card isHoverable css= {{padding: '30px'}}>
                         <Card.Body>
                             <Card.Image 
-                                src= { pokemon.sprites.other?.dream_world.front_default || 'no-iamge.jpg' }
+                                src= { pokemon.sprites.other?.dream_world.front_default || '/no-iamge.jpg' }
                                 alt={ pokemon.name }
                                 width = "100%"
                                 height={ 200 }
@@ -31,7 +34,10 @@ const PokemonPage: NextPage<Props> = ({ pokemon }) => {
                     <Card>
                         <Card.Header css={{ display: 'flex', justifyContent: 'space-between'}}>
                             <Text h1 transform='capitalize'>{ pokemon.name }</Text>
-                            <Button color="gradient" ghost>
+                            <Button color="gradient" 
+                                    ghost
+                                    onPress={ clickToogleFavorito }
+                                    >
                                 Guardar en Favoritos
                             </Button>
                         </Card.Header>
@@ -67,7 +73,6 @@ const PokemonPage: NextPage<Props> = ({ pokemon }) => {
                     </Card>
                 </Grid>
             </Grid.Container>
-            <h1> {pokemon.name} </h1>
         </Layout>
     )
 }
@@ -75,7 +80,7 @@ const PokemonPage: NextPage<Props> = ({ pokemon }) => {
 //del lado del servidor
 
 export const getStaticPaths: GetStaticPaths = async (ctx) => {
-    const pokemons150: string[] = [...Array(10)].map( (value, index) => `${ index + 1 }`);
+    const pokemons150: string[] = [...Array(50)].map( (value, index) => `${ index + 1 }`);
     return {
         paths: pokemons150.map ( id => ({
             params: { id: id }
