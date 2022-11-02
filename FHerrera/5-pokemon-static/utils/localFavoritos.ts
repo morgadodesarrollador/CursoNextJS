@@ -11,6 +11,15 @@ const toggleFavorito = ( id: number ) => {
     localStorage.setItem('favoritos', JSON.stringify( favoritos ))
 }
 
+const existePokemonINFavoritos = ( id: number ): boolean => {
+
+    // de este modo Next no procesará el localstorage que es propia del cliente
+    if (typeof window === 'undefined') return false;
+
+    const favoritos: number[] = JSON.parse (localStorage.getItem('favoritos') || '[]');
+    return favoritos.includes( id );
+}
+
 export default { 
-    toggleFavorito
+    toggleFavorito, existePokemonINFavoritos
 }
