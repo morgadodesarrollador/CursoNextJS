@@ -20,6 +20,13 @@ const existePokemonINFavoritos = ( id: number ): boolean => {
     return favoritos.includes( id );
 }
 
+const pokemons = (): number[] => {
+    // console.log( JSON.parse (localStorage.getItem('favorites') || '[]'));
+    return JSON.parse (localStorage.getItem('favoritos') || '[]')
+}
+
 export default { 
-    toggleFavorito, existePokemonINFavoritos
+    toggleFavorito, 
+    existePokemonINFavoritos, 
+    pokemons
 }
